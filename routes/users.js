@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 // Register
-router.post("/register", (req, res, next) => {
+router.get("/register", (req, res, next) => {
   res.send("REGISTER");
 });
 
 // Authentication
-router.get("/authentication", (req, res, next) => {
+router.post("/authentication", (req, res, next) => {
   res.send("AUTHENTICATION");
 });
 
