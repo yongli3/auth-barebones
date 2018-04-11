@@ -6,6 +6,7 @@ A MEAN stack template with authentication
 sudo npm install -g nodemon
 sudo npm install -g @angular/cli
 ```
+*If encounter issue when installing @angular/cli, see solution [here](https://github.com/angular/angular-cli/issues/9676)*
 
 ## dependencies of project itself
 ```bash
