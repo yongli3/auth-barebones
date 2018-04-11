@@ -18,5 +18,8 @@
     "passport-jwt": "*"
   },
   "author": "Peter Han",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@angular/cli": "^1.7.4"
+  }
 }
