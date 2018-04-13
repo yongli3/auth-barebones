@@ -17,9 +17,12 @@ router.post("/register", (req, res, next) => {
 
   User.addUser(user, (err, user) => {
     if (err) {
+      console.log(err);
+      console.log("Failed to register user");
       res.json({ success: false, msg: "Failed to register user" });
     }
     else {
+      console.log("User registered");
       res.json({ success: true, msg: "User registred" });
     }
   });
@@ -29,7 +32,9 @@ router.post("/register", (req, res, next) => {
 router.post("/authenticate", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-
+  console.log("username => " + username);
+  console.log("password => " + password);
+  
   User.getUserByUsername(username, (err, user) => {
     if(err) throw err;
     if(!user) {
@@ -38,12 +43,11 @@ router.post("/authenticate", (req, res, next) => {
         msg: "User not found"
       });
     }
-
+    
     User.comparePassword(password, user.password, (err, isMatch) => {
-      console.log("password " + password);
-      console.log("user.password " + user.password);
       if(err) throw err;
       if(isMatch) {
+        console.log("username and password match");
         const token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 120000
         });
@@ -60,6 +64,7 @@ router.post("/authenticate", (req, res, next) => {
         });
       }
       else {
+        console.log("username and password don't match");
         return res.json({
           success: false,
           msg: "Wrong password"
