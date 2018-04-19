@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Record } from './record';
 import { RecordsService } from '../../services/records.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-
+import { RecordComponent } from '../record/record.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
       else {
         console.log("Failed to get records");
         this.flashMessage.show("failed to get records" + data.msg, {
-          cssClass: 'aert-danger',
+          cssClass: 'alert-danger',
           timeout: 3000});
       }
     });

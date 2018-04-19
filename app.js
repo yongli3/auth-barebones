@@ -53,6 +53,7 @@ app.get("/", (req, res) => {
   res.send("Invalid");
 });
 
+
 // Make sure everything else will be redirect to index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -6,6 +6,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class RecordsService {
   authToken: any;
+  baseUrl: string = 'http://peterhan5.sh.intel.com:3000/';
 
   constructor(private http: Http) {}
 
@@ -18,7 +19,7 @@ export class RecordsService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:3000/users/profile', {headers: headers}).map(res => res.json());
     */
-    return this.http.get('http://localhost:3000/records/records').map(res => res.json());
+    return this.http.get(this.baseUrl + 'records/records').map(res => res.json());
   }
 
 

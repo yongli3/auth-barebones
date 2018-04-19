@@ -87,12 +87,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_angular2_flash_messages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__guards_auth_guard__ = __webpack_require__("./src/app/guards/auth.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_records_service__ = __webpack_require__("./src/app/services/records.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_record_record_component__ = __webpack_require__("./src/app/components/record/record.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -130,7 +132,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_8__components_register_register_component__["a" /* RegisterComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__["a" /* HomeComponent */],
                 __WEBPACK_IMPORTED_MODULE_10__components_dashboard_dashboard_component__["a" /* DashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__components_profile_profile_component__["a" /* ProfileComponent */]
+                __WEBPACK_IMPORTED_MODULE_11__components_profile_profile_component__["a" /* ProfileComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__components_record_record_component__["a" /* RecordComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -161,7 +164,7 @@ module.exports = ""
 /***/ "./src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"page-header\">Dashboard</h1>\n\n<p>Welcome to dashboard</p>\n\n<!--\n<input-editor label=\"Description\" id=\"description\" [(ngModel)]=\"selectedRecord.description\" type=\"text\" placeholder=\"Enter description\" (onSave)=\"updateClick()\"></input-editor>\n-->"
+module.exports = "<h1 class=\"page-header\">Dashboard</h1>\n\n<p>Welcome to dashboard</p>\n\n<ul>\n <app-record *ngFor='let record of records' [record]=\"record\" ></app-record>\n</ul>"
 
 /***/ }),
 
@@ -197,20 +200,17 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.getRecords = function () {
         var _this = this;
         console.log("start to get all records");
-        console.log('---------start to get all records---------');
         this.recordsService.getRecords().subscribe(function (data) {
-            console.log('------------------');
             if (data.success) {
                 _this.records = data.records;
                 for (var i = 0; i < data.records.length; ++i) {
-                    console.log('------------------');
                     console.log("description: " + data.records[i].description + " create date: " + data.records[i].createTime);
                 }
             }
             else {
                 console.log("Failed to get records");
                 _this.flashMessage.show("failed to get records" + data.msg, {
-                    cssClass: 'aert-danger',
+                    cssClass: 'alert-danger',
                     timeout: 3000
                 });
             }
@@ -225,6 +225,21 @@ var DashboardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_records_service__["a" /* RecordsService */], __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]])
     ], DashboardComponent);
     return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/dashboard/record.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Record; });
+var Record = /** @class */ (function () {
+    function Record() {
+    }
+    return Record;
 }());
 
 
@@ -503,6 +518,67 @@ var ProfileComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/record/record.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/components/record/record.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<input-editor label=\"Description\" id=\"description\" [(ngModel)]=\"record.description\" type=\"text\" placeholder=\"Enter description\" (onSave)=\"saveRecord()\"></input-editor>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/components/record/record.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecordComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_record__ = __webpack_require__("./src/app/components/dashboard/record.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RecordComponent = /** @class */ (function () {
+    function RecordComponent() {
+    }
+    RecordComponent.prototype.ngOnInit = function () {
+    };
+    RecordComponent.prototype.saveRecord = function () {
+        console.log("saveRecordDescription");
+        //this.record.description = this.description;
+        //this.record.updateTime = Date.now();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__dashboard_record__["a" /* Record */])
+    ], RecordComponent.prototype, "record", void 0);
+    RecordComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-record',
+            template: __webpack_require__("./src/app/components/record/record.component.html"),
+            styles: [__webpack_require__("./src/app/components/record/record.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], RecordComponent);
+    return RecordComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/register/register.component.css":
 /***/ (function(module, exports) {
 
@@ -670,23 +746,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
+        this.baseUrl = 'http://peterhan5.sh.intel.com:3000/';
     }
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/register', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post(this.baseUrl + 'users/register', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post(this.baseUrl + 'users/authenticate', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthService.prototype.getProfile = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:3000/users/profile', { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.get(this.baseUrl + 'users/profile', { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {
         localStorage.setItem('id_token', token);
@@ -740,6 +817,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var RecordsService = /** @class */ (function () {
     function RecordsService(http) {
         this.http = http;
+        this.baseUrl = 'http://peterhan5.sh.intel.com:3000/';
     }
     RecordsService.prototype.getRecords = function () {
         /*
@@ -749,7 +827,7 @@ var RecordsService = /** @class */ (function () {
         headers.append('Content-Type', 'application/json');
         return this.http.get('http://localhost:3000/users/profile', {headers: headers}).map(res => res.json());
         */
-        return this.http.get('http://localhost:3000/records/records').map(function (res) { return res.json(); });
+        return this.http.get(this.baseUrl + 'records/records').map(function (res) { return res.json(); });
     };
     RecordsService.prototype.loadToken = function () {
         var token = localStorage.getItem('id_token');

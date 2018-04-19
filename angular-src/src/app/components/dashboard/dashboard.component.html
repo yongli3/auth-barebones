@@ -2,6 +2,6 @@
 
 <p>Welcome to dashboard</p>
 
-<!--
-<input-editor label="Description" id="description" [(ngModel)]="selectedRecord.description" type="text" placeholder="Enter description" (onSave)="updateClick()"></input-editor>
--->
+<ul>
+ <app-record *ngFor='let record of records' [record]="record" ></app-record>
+</ul>
