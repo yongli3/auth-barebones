@@ -30,9 +30,8 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   let now = Date.now();
   let uid = req.params.id;
-  console.log('updating record ' + uid);
   let record = new Record({
-    id: uid,
+    _id: uid,
     description: req.body.description,
     updateTime: now
   });

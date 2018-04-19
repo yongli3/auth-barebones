@@ -28,10 +28,10 @@ module.exports.addRecord = function(record, callback) {
 
 module.exports.updateRecord = function(record, callback) {
   Record.findByIdAndUpdate(
-    record.id,
+    record._id,
     {
       $set: {
-        descritption: record.description,
+        description: record.description,
         updateTime: record.updateTime
       }
     },

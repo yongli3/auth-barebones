@@ -539,6 +539,7 @@ module.exports = "<input-editor label=\"Description\" id=\"description\" [(ngMod
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecordComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_record__ = __webpack_require__("./src/app/components/dashboard/record.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_records_service__ = __webpack_require__("./src/app/services/records.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -550,15 +551,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var RecordComponent = /** @class */ (function () {
-    function RecordComponent() {
+    function RecordComponent(recordsService) {
+        this.recordsService = recordsService;
     }
     RecordComponent.prototype.ngOnInit = function () {
     };
     RecordComponent.prototype.saveRecord = function () {
-        console.log("saveRecordDescription");
+        console.log("saveRecordDescription" + this.record.description);
         //this.record.description = this.description;
         //this.record.updateTime = Date.now();
+        console.log("record component update record id=" + this.record._id);
+        this.recordsService.updateRecord(this.record).subscribe(function (data) {
+            if (data.success) {
+                console.log("update success");
+            }
+            else {
+                console.log("update failed");
+            }
+        });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
@@ -570,7 +582,7 @@ var RecordComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/record/record.component.html"),
             styles: [__webpack_require__("./src/app/components/record/record.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_records_service__["a" /* RecordsService */]])
     ], RecordComponent);
     return RecordComponent;
 }());
@@ -828,6 +840,20 @@ var RecordsService = /** @class */ (function () {
         return this.http.get('http://localhost:3000/users/profile', {headers: headers}).map(res => res.json());
         */
         return this.http.get(this.baseUrl + 'records/records').map(function (res) { return res.json(); });
+    };
+    RecordsService.prototype.updateRecord = function (record) {
+        var data = {
+            description: record.description
+        };
+        /*
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this.baseUrl + 'records/' + record._id, data, {headers: headers}).map(res => res.json());
+        */
+        console.log("RecordsService id = " + record._id);
+        return this.http.put(this.baseUrl + 'records/' + record._id, data).map(function (res) { return res.json(); });
     };
     RecordsService.prototype.loadToken = function () {
         var token = localStorage.getItem('id_token');
