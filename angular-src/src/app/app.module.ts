@@ -13,11 +13,13 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { Profile } from 'selenium-webdriver/firefox';
+import { InputEditorModule } from 'angular-inline-editors';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
+import { RecordsService } from './services/records.service';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -42,9 +44,10 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    InputEditorModule.forRoot()
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, AuthGuard, RecordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
